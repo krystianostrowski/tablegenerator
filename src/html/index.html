@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table Generator</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/core.js"></script>
+</head>
+<body>
+    <div class="main__container">
+        <div class="table-wrapper">
+            <div class="header"></div>
+            <div class="table__container">
+                <table id="main-table">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="options">
+            <select class="options__select">
+                <optgroup id="select__options__container">Grupy</optgroup>
+            </select>
+            <select class="options__select">
+            </select>
+            <select class="options__select">
+            </select>
+
+            <button id="print__btn">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Drukuj
+            </button>
+        </div>
+    </div>
+    <div class="modal add-group">
+        <button class="exit"></button>
+        <div class="modal--content">
+            <form>
+                <input type="text" id="group__name">
+                <input type="text" id="group__tutor">
+                <button type="button" onclick="AddGroup();">Dodaj</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal del-group">
+        <button class="exit"></button>
+        <div class="modal--content">
+            <table id="groups__table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Nazwa grupy</td>
+                        <td>Wychowawca</td>
+                        <td>Opcje</td>
+                    </tr>
+                </thead>
+                <tbody  id="groups__table__body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal add-person">
+        <button class="exit"></button>
+        <div class="modal--content">
+            <form id="add__person">
+                <input type="text" placeholder="Imię">
+                <input type="text" placeholder="Nazwisko">
+                <input type="text" placeholder="GP">
+                <input type="text" placeholder="GK">   
+                <label>
+                    <input type="checkbox">Śniadanie        
+                </label>             
+                <label>
+                    <input type="checkbox">Obiad
+                </label>
+                <label>
+                    <input type="checkbox">Podwieczorek
+                </label>
+                <select id="add-person__select">
+                    <option disabled selected hidden>Grupa</option>
+                </select>
+                <button type="button" onclick="AddMember()">Dodaj</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal manage-persons">
+        <button class="exit"></button>
+        <div class="modal--content">
+            <div id="members__table">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Imię i nazwisko</td>
+                            <td>Godziny</td>
+                            <td>Posiłki</td>
+                            <td>Grupa</td>
+                            <td>Opcje</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="edit-person__form__container">
+                <form id="edit-person__form">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../js/renderer.js"></script>
+</body>
+</html>
