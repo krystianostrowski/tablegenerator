@@ -1,12 +1,16 @@
 @media print {
     @page {
         size: landscape;
-        margin: 0px;
+        margin: 0px 10px;
     }
 
     div.options,
     div.titlebar {
         display: none;
+    }
+
+    div.header {
+        color: #000;
     }
 
     div.table-wrapper {
@@ -41,6 +45,12 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    color: #fff;
 }
 
 .table-wrapper {

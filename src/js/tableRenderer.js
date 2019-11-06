@@ -42,6 +42,26 @@ const RenderThead = (table, thead, days) => {
  */
 const RenderHeader = group => {
     const header = document.querySelector('.header');
+    
+    const ps = header.querySelectorAll('p');
+
+    if(ps != null)
+        ps.forEach(p => {
+            p.remove();
+        });
+
+    let pArray = [];
+
+    for(let i = 0; i < 3; i++)
+    {
+        const p = document.createElement('p');
+        pArray.push(p);
+        header.appendChild(p);
+    }
+
+    pArray[0].innerHTML = group.name;
+    pArray[1].innerHTML = `${time.monthName} ${time.year}`;
+    pArray[2].innerHTML = `wych. ${group.tutor}`;
 };
 
 /**
