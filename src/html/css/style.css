@@ -34,8 +34,11 @@
         background: #fff;
     }
 }
-* {
-    font-family: 'Cascadia Code';
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: 'Lato';
 }
 
 .main__container {
@@ -51,6 +54,20 @@
     display: flex;
     justify-content: space-around;
     color: #fff;
+}
+
+.options select {
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.5);
+    border: 2px solid #1db954;
+    border-radius: 10px;
+    padding: 2px 5px;
+    outline: none;
+    background: #212121;
+    color: #fff;
+}
+
+.options option {
+    text-align: center;
 }
 
 .table-wrapper {
@@ -256,4 +273,9 @@ td {
     100% {
         transform: scale(1) translateX(0) translateY(0);
     }
+}
+
+@font-face {
+    font-family: 'Lato';
+    src: url('../fonts/lato.woff2') format('woff2');
 }

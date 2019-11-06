@@ -64,7 +64,7 @@ const RenderTimeSelects = (monthsSelect, years) => {
     });
 
     //adding current and next year to select
-    for(let i = 0; i < 2; i++)
+    for(let i = -1; i < 2; i++)
     {
         const option = document.createElement('option');
 
