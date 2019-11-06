@@ -7,7 +7,7 @@ const time = require('../js/time');
 const modals = document.querySelectorAll('.modal');     //Array of modals nodes
 var activeModal = null;                                 //Currently active modal
 var btn;                                                //Modal's close button
-const printBtn = document.querySelector('#print__btn');
+const printBtn = document.querySelector('#print__btn'); //print button
 
 //Creating custom TitleBar
 let MyTitlebar = new customTitlebar.Titlebar({
@@ -15,8 +15,10 @@ let MyTitlebar = new customTitlebar.Titlebar({
     shadow: true
 });
 
-MyTitlebar.updateTitle("Table Generator v0.6.6 (BETA)");          //Updating Title on Titlebar
+//Updating Title on Titlebar
+MyTitlebar.updateTitle("Table Generator v0.6.6 (BETA)");
 
+//adding print button click event
 printBtn.addEventListener('click', () => {
     ipcRenderer.send('print-to-pdf');
 });
@@ -84,15 +86,22 @@ const exitButtonFunction = () => {
 };
 
 //Rendering table
-const optionsContainer = document.querySelector('.options');
-const selects = optionsContainer.querySelectorAll('select');
-const groups = tools.LoadData().groups;
+const optionsContainer = document.querySelector('.options');        //options parent
+const selects = optionsContainer.querySelectorAll('select');        //options - select group
+const groups = tools.LoadData().groups;                             //array of groups from database
 
+//rendering tablr
 tableRenderer.RenderTable(groups[0].id, time.month, time.year);
+
+//rendering group select in options
 tableRenderer.RenderGroupSelect(selects[0]);
+
+//rendering time selects in options
 time.RenderTimeSelects(selects[1], selects[2]);
 
+//adding change event to all selects in options
 optionsContainer.addEventListener('change', e => {
+    //refreshing table after options changed
     if(e.target.classList.contains('options__select')) 
         tableRenderer.RenderTable(selects[0].value, selects[1].value, selects[2].value);
 });
