@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-packager . --out ../release-builds --overwrite",
+    "build": "node ../installer.js"
   },
   "author": "Krystian Ostrowski",
   "license": "ISC",

@@ -1,11 +1,9 @@
 const fs = require('fs');
 
 //const dbPath = './resources/app/json/db.json';            //Path to JSON database
-const dbPath = './src/json/db.json';
-
-//TODO: Write code for getting last used group GetLastUsedGroupId()
-//TODO: Move currentGroup variable to renderer file
-//TODO: Add Getting group data function in new module
+const dbDir = `${process.env.APPDATA}\\table-generator`;
+const dbFile = 'database.json';
+const dbPath = `${dbDir}\\${dbFile}`;
 
 //Getting index of Objects array by id
 const GetElementOfArrayById = (id, json) => {
@@ -24,6 +22,17 @@ const GetElementOfArrayById = (id, json) => {
 
 //Getting data from JSON database
 const GetData = (id = null) => {
+    if(!fs.existsSync(dbDir))
+        fs.mkdirSync(dbDir);
+
+    if(!fs.existsSync(dbPath))
+    {   
+        const defaultData = { "members": [], "groups": [] };
+        fs.writeFileSync(dbPath, JSON.stringify(defaultData, null, 2), (err) => {
+            if(err)
+                return console.error(err.message);
+        });
+    }
 
     let json = fs.readFileSync(dbPath, (err, data) => {
         if(err) 
