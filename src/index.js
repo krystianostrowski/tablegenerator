@@ -130,9 +130,8 @@ autoUpdater.on('checking-for-update', () => {
 autoUpdater.on('update-available', () => {
     const dialogOpts = {
         type: 'info',
-        buttons: ['OK'],
         title: 'Aktualizacja',
-        detail: 'Dostępna jest nowa wersja aplikacji.'
+        detail: 'Proszę czekać. Trwa pobieranie aktualizacji'
     }
 
     dialog.showMessageBox(dialogOpts, response => {
