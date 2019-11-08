@@ -140,6 +140,9 @@ const RenderMembersTable = () => {
 const RenderAddPersonSelect = () => {
     const select = document.querySelector('#add-person__select');   //group select element in add person form
     
+    while(select.firstChild)
+        select.removeChild(select.firstChild);
+
     //looping for each group in database and pushing it to select element
     tools.LoadData().groups.forEach(group => {
         const option = document.createElement('option');
