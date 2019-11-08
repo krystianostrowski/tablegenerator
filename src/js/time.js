@@ -44,6 +44,15 @@ const GetDays = (month, year) => {
 }
 
 /**
+ * This functions gets month name from months array.
+ * @param {int} month 
+ * @returns Month name in Polish.
+ */
+const GetMonthName = (month) => {
+    return months[month];
+} 
+
+/**
  * @description This function renders month and year selects in options
  * @param {Element} monthsSelect 
  * @param {Element} years 
@@ -88,5 +97,8 @@ module.exports = {
     },
     GetDays: (month, year) => {
         return GetDays(month, year);
+    },
+    GetMonthName: (month) => {
+        return GetMonthName(month)
     }
 };

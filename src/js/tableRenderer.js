@@ -40,7 +40,7 @@ const RenderThead = (table, thead, days) => {
  * @description This function renders header
  * @param {Object} group - group to render object 
  */
-const RenderHeader = group => {
+const RenderHeader = (group, month, year) => {
     const header = document.querySelector('.header');
     
     const ps = header.querySelectorAll('p');
@@ -60,7 +60,7 @@ const RenderHeader = group => {
     }
 
     pArray[0].innerHTML = group.name;
-    pArray[1].innerHTML = `${time.monthName} ${time.year}`;
+    pArray[1].innerHTML = `${time.GetMonthName(month)} ${year}`;
     pArray[2].innerHTML = `wych. ${group.tutor}`;
 };
 
@@ -124,7 +124,7 @@ const RenderTable = (groupId, month, year) => {
     const days = time.GetDays(month, year);                                 //array of working day in month
 
     //rendering
-    RenderHeader(group);
+    RenderHeader(group, month, year);
     RenderThead(table, thead, days);
     RenderPersons(group, table, tbody, days.length);
 };

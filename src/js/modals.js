@@ -164,6 +164,8 @@ const FillInEditForm = (eId) => {
     const data = [members[editId].name, members[editId].secondName, members[editId].start, members[editId].end, members[editId].dishes.breakfast, members[editId].dishes.dinner, members[editId].dishes.tea];
     const groups = jsonData.groups;                                                     //array of groups from database
     let memberOfGroup = GetGroup(id, groups);                                           //index of group which member belongs to
+    let checkboxCounter = 0;                                                            //counts checkboxes
+    const checkboxLabels = ['Śniadanie', 'Obiad', 'Podwieczorek'];                      //array of labels for checkboxes
 
     //clearing form
     form.remove();
@@ -174,7 +176,7 @@ const FillInEditForm = (eId) => {
     //crating inputs and filling it
     for(let i = 0; i < 7; i++)
     {
-        const input = document.createElement('input');
+        let input = document.createElement('input');
         
         if(i < 4)
         {
@@ -183,8 +185,20 @@ const FillInEditForm = (eId) => {
         }
         else
         {
+            const label = document.createElement('label');
+            const span = document.createElement('span');
+
             input.type = "checkbox";
             input.checked = data[i];
+
+            span.innerHTML = checkboxLabels[checkboxCounter];
+
+            label.appendChild(input);
+            label.appendChild(span);
+
+            input = label;
+
+            checkboxCounter++;
         }
 
         form.appendChild(input);
