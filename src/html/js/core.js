@@ -1,6 +1,18 @@
 const tools = require('../js/tools.js');            //require tools modure
 const modalRenderer = require('../js/modals');      //require modalse renderer
 
+let groupSelect;
+let monthSelect;
+let yearSelect;
+
+window.onload = () => {
+    const options = document.querySelector('.options');
+    const selects = options.querySelectorAll('select');
+    groupSelect = selects[0];
+    monthSelect = selects[1];
+    yearSelect = selects[2];
+}
+
 /**
  * @description This function gets data from inputs in add group window
  * and adding new group to database
@@ -16,6 +28,8 @@ function AddGroup()
     //clearing inputs
     groupTutor.value = '';
     groupName.value = '';
+
+    tableRenderer.RenderGroupSelect(groupSelect);
 }
 
 /**
@@ -29,6 +43,16 @@ function DeleteGroup(id)
 
     //refreshing groups table
     modalRenderer.RenderGroupsTable();
+
+    //currently showing group
+    const currentGroup = groupSelect.value;
+
+    //refreshing main table
+    tableRenderer.RenderGroupSelect(groupSelect);
+
+    //checking if table should be refreshed
+    if(id == currentGroup)
+        tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
 }
 
 /**
@@ -44,7 +68,15 @@ function AddMember()
     //adding member to database
     tools.AddMember(select.value, inputs[0].value, inputs[1].value, inputs[2].value, inputs[3].value, inputs[4].checked, inputs[5].checked, inputs[6].checked);
 
-    //TODO: clearing inputs
+    //clearing inputs
+    inputs.forEach(input => {
+        if(input.type == 'checkbox')
+            input.checked = false;
+        else
+            input.value = '';
+    });
+
+    tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
 }
 
 /**
@@ -86,4 +118,7 @@ function SaveChanges(id)
 
     //refreshing members table
     modalRenderer.RenderMembersTable();
+
+    //refreshing table
+    tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
 }

@@ -211,27 +211,15 @@ const FillInEditForm = (eId) => {
     const selectEditMember = document.createElement('select');
     form.appendChild(selectEditMember);
 
-    //group object which member belongs to
-    const groupEl = tools.GetElementOfArrayById(memberOfGroup, groups);
-
-    //adding current group to group select
-    /*if(groupEl < groups.length)
-    {
-        const selectedOption = document.createElement('option');
-        selectedOption.defaultSelected = true;
-        selectedOption.value = memberOfGroup;
-        selectedOption.innerHTML = groups[groupEl].name;
-        selectEditMember.appendChild(selectedOption);
-    }*/
-
     //adding others groups to group select
     groups.forEach(group => {
             const option = document.createElement('option');
             option.value = group.id;
             option.innerHTML = group.name;
 
-            if(group.id == groups[memberOfGroup].id)
-                option.defaultSelected = true;
+            if(memberOfGroup < groups.length)
+                if(group.id == groups[memberOfGroup].id )
+                    option.defaultSelected = true;
 
             selectEditMember.appendChild(option);
     });

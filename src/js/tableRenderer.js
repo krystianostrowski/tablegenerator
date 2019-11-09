@@ -134,15 +134,17 @@ const RenderTable = (groupId, month, year) => {
  * @param {Element} select - group select element
  */
 const RenderGroupSelect = (select) => {
-    let optionsContainer = select.querySelector('#select__options__container');     //options parent
+    //let optionsContainer = select.querySelector('#select__options__container');     //options parent
 
     //clearing options
-    optionsContainer.remove();
+   /* optionsContainer.remove();
     optionsContainer = document.createElement('optgroup');
     optionsContainer.id = 'select__options__container';
     optionsContainer.setAttribute('label', 'Grupy');
-    select.appendChild(optionsContainer);
+    select.appendChild(optionsContainer);*/
 
+    while(select.firstChild)
+        select.removeChild(select.firstChild);
 
     const groups = tools.LoadData().groups;         //array of groups form database
     let counter = 1;                                //groups counter
@@ -160,7 +162,7 @@ const RenderGroupSelect = (select) => {
             counter++;
         }
 
-        optionsContainer.appendChild(option);
+        select.appendChild(option);
     });
 };
 

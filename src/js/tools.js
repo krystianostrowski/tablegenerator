@@ -240,11 +240,14 @@ const EditMember = (groupId, memberId, name, surname, hoursFrom, hoursTo, hasBre
     //changing member group
     if(currentGroup != newGroup)
     {
-        //member index in current group members
-        const memberToRemove = groups[currentGroup].members.indexOf(memberId);
+        if(currentGroup != -1)
+        {
+            //member index in current group members
+            const memberToRemove = groups[currentGroup].members.indexOf(memberId);
 
-        //removing member from current group
-        data.groups[currentGroup].members.splice(memberToRemove, 1);
+            //removing member from current group
+            data.groups[currentGroup].members.splice(memberToRemove, 1);
+        }
 
         //adding member to new group
         data.groups[newGroup].members.push(memberId);
