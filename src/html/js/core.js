@@ -14,6 +14,24 @@ window.onload = () => {
 }
 
 /**
+ * This function displys alert.
+ * @param {string} text - text to display.
+ */
+function DisplayAlert(text)
+{
+    const modal = document.querySelector('.modal--visible');
+    const alert = document.createElement('div');
+    alert.classList.add('alert');
+    alert.innerHTML = text;
+
+    modal.appendChild(alert);
+
+    setTimeout(() => {
+        modal.removeChild(alert);
+    }, 750)
+}
+
+/**
  * @description This function gets data from inputs in add group window
  * and adding new group to database
  */
@@ -30,6 +48,8 @@ function AddGroup()
     groupName.value = '';
 
     tableRenderer.RenderGroupSelect(groupSelect);
+
+    DisplayAlert('Pomyślnie dodano grupę!');
 }
 
 /**
@@ -53,6 +73,8 @@ function DeleteGroup(id)
     //checking if table should be refreshed
     if(id == currentGroup)
         tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
+
+    DisplayAlert('Pomyślnie usunięto grupę!');
 }
 
 /**
@@ -77,6 +99,8 @@ function AddMember()
     });
 
     tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
+
+    DisplayAlert('Pomyślnie dodano osobę!');
 }
 
 /**
@@ -91,6 +115,8 @@ function DeleteMember(gId, mId)
 
     //refreshing members table
     modalRenderer.RenderMembersTable();
+
+    DisplayAlert('Pomyślnie usunięto osobę!');
 }
 
 /**
@@ -121,4 +147,6 @@ function SaveChanges(id)
 
     //refreshing table
     tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
+
+    DisplayAlert('Pomyślnie edytowano osobę!');
 }

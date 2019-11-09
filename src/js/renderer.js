@@ -16,7 +16,7 @@ let MyTitlebar = new customTitlebar.Titlebar({
 });
 
 //Updating Title on Titlebar
-MyTitlebar.updateTitle("Table Generator v0.9.3 (BETA)");
+MyTitlebar.updateTitle("Table Generator v0.9.4 (BETA)");
 
 //adding print button click event
 printBtn.addEventListener('click', () => {

@@ -16,7 +16,7 @@ const GetElementOfArrayById = (id, json) => {
     //looping through all objects in array
     for(let i = 0; i < json.length; i++)
     {
-        //if object id == given id break else increment counter
+        //if object id == given id break loop else increment counter
         if(json[i].id == id)
             break;
         else
@@ -174,10 +174,14 @@ const RemoveMember = (gId, mId) => {
     let data = GetData();                                       //all data from database
     const group = GetElementOfArrayById(gId, data.groups);      //index of group in groups array
     const member = GetElementOfArrayById(mId, data.members);    //index of member in members array
-    const groupMembers = data.groups[group].members;            //all members in group
-    
-    //removing member from group
-    groupMembers.splice(groupMembers.indexOf(mId), 1);
+
+    if(group < data.groups.length)
+    {
+        const groupMembers = data.groups[group].members;            //all members in group
+
+        //removing member from group
+        groupMembers.splice(groupMembers.indexOf(mId), 1);
+    }
     
     //remove member from database
     data.members.splice(member, 1);
@@ -251,11 +255,8 @@ const EditMember = (groupId, memberId, name, surname, hoursFrom, hoursTo, hasBre
 
         //adding member to new group
         data.groups[newGroup].members.push(memberId);
-
-        //sorting new group
-        data.groups[newGroup].members.sort(compare);
     }
-
+    
     //setting all member data
     data.members[member].name = name;
     data.members[member].secondName = surname;
@@ -264,6 +265,9 @@ const EditMember = (groupId, memberId, name, surname, hoursFrom, hoursTo, hasBre
     data.members[member].dishes.breakfast = hasBreakfast;
     data.members[member].dishes.dinner = hasDinner;
     data.members[member].dishes.tea = hasTea;
+
+    //sorting new group
+    data.groups[newGroup].members.sort(compare);
 
     SaveData(data);
 };

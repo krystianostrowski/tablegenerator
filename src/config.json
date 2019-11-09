@@ -1,5 +1,4 @@
 {
     "devBuild": true,
-    "appWidth": 800,
-    "appHeight": 600 
+    "enable-preview": false
 }
