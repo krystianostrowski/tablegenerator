@@ -134,14 +134,11 @@ const RenderTable = (groupId, month, year) => {
  * @param {Element} select - group select element
  */
 const RenderGroupSelect = (select) => {
-    //let optionsContainer = select.querySelector('#select__options__container');     //options parent
+    let currentGroupId = -1;
 
-    //clearing options
-   /* optionsContainer.remove();
-    optionsContainer = document.createElement('optgroup');
-    optionsContainer.id = 'select__options__container';
-    optionsContainer.setAttribute('label', 'Grupy');
-    select.appendChild(optionsContainer);*/
+    if(select.value != '')
+        currentGroupId = select.value;
+
 
     while(select.firstChild)
         select.removeChild(select.firstChild);
@@ -156,11 +153,13 @@ const RenderGroupSelect = (select) => {
         option.innerHTML = group.name;
 
         //if it's first option mark it as selected
-        if(counter == 1)
+        if(counter == 1 && currentGroupId == -1)
         {
             option.defaultSelected = true;
             counter++;
         }
+        else if(group.id == currentGroupId && currentGroupId != -1)
+            option.defaultSelected = true;
 
         select.appendChild(option);
     });
