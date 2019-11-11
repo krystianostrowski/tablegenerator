@@ -16,7 +16,7 @@ let MyTitlebar = new customTitlebar.Titlebar({
 });
 
 //Updating Title on Titlebar
-MyTitlebar.updateTitle("Table Generator v0.9.4 (BETA)");
+MyTitlebar.updateTitle("Table Generator v0.9.5 (BETA)");
 
 //adding print button click event
 printBtn.addEventListener('click', () => {
@@ -74,7 +74,8 @@ ipcRenderer.on('wrote-pdf', (event, path) => {
 //Called when pressed print button
 ipcRenderer.on('print', () => {
     //Sending event to main thread
-    ipcRenderer.send('print-to-pdf');
+    //ipcRenderer.send('print-to-pdf');
+    window.print();
 })
 
 //hides current showing modal and removes modal's button event listener

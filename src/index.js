@@ -61,8 +61,8 @@ Menu.setApplicationMenu(menu);
 const createWindow = () => {
 
     win = new BrowserWindow({
-        width: config.appWidth,
-        height: config.appHeight,
+        width: 1920,
+        height: 1080,
         backgroundColor: '#212121',
         frame: false,
         minimizable: false,
@@ -157,7 +157,10 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
 
 ipcMain.on('print-to-pdf', (event) => {
     const pdfPath = path.join(os.tmpdir(), 'print.pdf');
-    win.webContents.printToPDF({}, (error, data) => {
+    win.webContents.printToPDF({
+        pageSize: 'A4',
+        marginsType: 2
+    }, (error, data) => {
         if(error) return console.log(error.message);
 
         fs.writeFile(pdfPath, data, (err) => {
