@@ -3,6 +3,7 @@ const customTitlebar = require('custom-electron-titlebar');
 const modalsRenderer = require('../js/modals');
 const tableRenderer = require('../js/tableRenderer');
 const time = require('../js/time');
+const appVersion = require('electron').remote.app.getVersion();
 
 const modals = document.querySelectorAll('.modal');     //Array of modals nodes
 var activeModal = null;                                 //Currently active modal
@@ -16,7 +17,7 @@ let MyTitlebar = new customTitlebar.Titlebar({
 });
 
 //Updating Title on Titlebar
-MyTitlebar.updateTitle("Table Generator v0.9.5 (BETA)");
+MyTitlebar.updateTitle(`Table Generator ${appVersion}`);
 
 //adding print button click event
 printBtn.addEventListener('click', () => {
