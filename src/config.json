@@ -1,4 +1,4 @@
 {
-    "devBuild": true,
-    "enable-preview": false
+    "devBuild": false,
+    "enablePreview": false
 }

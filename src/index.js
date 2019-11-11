@@ -7,7 +7,59 @@ const os = require('os');
 const server = 'http://krystian-ostrowski.webd.pro';                        //URL to update's server
 const feed = `${server}/update?v=${app.getVersion()}`;    //path to updates directory on server
 
-console.log(process.platform, app.getVersion());
+//console.log(process.platform, app.getVersion());
+if(handleSquirrelEvent()) {
+    return;
+}
+
+function handleSquirrelEvent() {
+    if(process.argv.length === 1)
+        return false;
+
+    const ChildProcess = require('child_process');
+    const squirrelEvents = process.argv[1];
+    
+    const appFolder = path.resolve(process.execPath, '..');
+    const rootAtomFolder = path.resolve(appFolder, '..');
+    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
+    const exeName = path.basename(process.execPath);
+    
+    const spawn = (command, args) => {
+        let spawnedProcess, error;
+    
+        try
+        {
+            spawnedProcess = ChildProcess.spawn(command, args, { detached: true });
+        }
+        catch(error) {}
+    
+        return spawnedProcess;
+    };
+    
+    const spawnUpdate = args => {
+        return spawn(updateDotExe, args);
+    }
+    
+    switch(squirrelEvents)
+    {
+        case '--squirrel-install':
+        case '--squirrel-updated':
+            spawnUpdate(['--createShortcut', exeName]);
+    
+            setTimeout(app.quit, 1000);
+            return true;
+    
+        case '--squirrel-uninstall':
+            spawnUpdate(['--removeShortcut', exeName]);
+    
+            setTimeout(app.quit, 1000);
+            return true;
+    
+        case '--squirrel-obsolete':
+            app.quit();
+            return true;
+    }  
+};
 
 let win;   //window instance
 
@@ -25,6 +77,13 @@ const menuTemplate = [
                 label: 'Usuń',
                 click: () => {
                     win.webContents.send('render-modal', { modal: 'del-group' });
+                }
+            },
+            {
+                label: '<s>Zarządzaj członkami</s> (Experimental, Unknown ETA)',
+                click: () => {
+                    if(config.devBuild || config.enablePreview)
+                        win.webContents.send('render-modal', { modal: 'manage-group-members' });
                 }
             }
         ]
@@ -73,19 +132,11 @@ const createWindow = () => {
         }
     });
 
-    globalShortcut.register('f5', () => {
-        win.reload();
-        console.log("Reloaded Window");
-    });
-
     //maximalize window
     win.maximize();
 
     //load index.html
     win.loadFile('./html/index.html');
-
-    //open dev tools
-    win.webContents.openDevTools();
 
     //called when window is closed
     win.on('closed', () => {
@@ -97,6 +148,17 @@ const createWindow = () => {
     {
         autoUpdater.setFeedURL(feed);
         autoUpdater.checkForUpdates();
+    }
+
+    if(config.devBuild)
+    {
+        globalShortcut.register('f5', () => {
+            win.reload();
+            console.log("Reloaded Window");
+        });
+
+        //open dev tools
+        win.webContents.openDevTools();
     }
 };
 
@@ -114,18 +176,6 @@ app.on('activate', () => {
 
         console.log(x.id);
 });
-
-autoUpdater.on('checking-for-update', () => {
-    const dialogOpts = {
-        type: 'info',
-        buttons: ['OK'],
-        title: 'Tak',
-    }
-
-    dialog.showMessageBox(dialogOpts, response => {
-        console.log(response);
-    });
-})
 
 autoUpdater.on('update-available', () => {
     const dialogOpts = {

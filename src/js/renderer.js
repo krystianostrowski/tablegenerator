@@ -92,8 +92,9 @@ const optionsContainer = document.querySelector('.options');        //options pa
 const selects = optionsContainer.querySelectorAll('select');        //options - select group
 const groups = tools.LoadData().groups;                             //array of groups from database
 
-//rendering tablr
-tableRenderer.RenderTable(groups[0].id, time.month, time.year);
+//rendering table
+if(groups.length > 0)
+    tableRenderer.RenderTable(groups[0].id, time.month, time.year);
 
 //rendering group select in options
 tableRenderer.RenderGroupSelect(selects[0]);

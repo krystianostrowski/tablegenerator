@@ -1,13 +1,13 @@
 {
   "name": "table-generator",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Tak",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ./src/index.js",
-    "pack": "electron-packager ./src --out ./release-builds --overwrite",
-    "build": "node installer.js"
+    "app-packager": "electron-packager ./src --out ./release-builds --overwrite",
+    "build-win": "node installer.js"
   },
   "author": "Krystian Ostrowski",
   "license": "ISC",

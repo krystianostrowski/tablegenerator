@@ -146,23 +146,26 @@ const RenderGroupSelect = (select) => {
     const groups = tools.LoadData().groups;         //array of groups form database
     let counter = 1;                                //groups counter
 
-    groups.forEach(group => {
-        const option = document.createElement('option');
+    if(groups.length > 0)
+    {
+        groups.forEach(group => {
+            const option = document.createElement('option');
 
-        option.value = group.id;
-        option.innerHTML = group.name;
+            option.value = group.id;
+            option.innerHTML = group.name;
 
-        //if it's first option mark it as selected
-        if(counter == 1 && currentGroupId == -1)
-        {
-            option.defaultSelected = true;
-            counter++;
-        }
-        else if(group.id == currentGroupId && currentGroupId != -1)
-            option.defaultSelected = true;
+            //if it's first option mark it as selected
+            if(counter == 1 && currentGroupId == -1)
+            {
+                option.defaultSelected = true;
+                counter++;
+            }
+            else if(group.id == currentGroupId && currentGroupId != -1)
+                option.defaultSelected = true;
 
-        select.appendChild(option);
-    });
+            select.appendChild(option);
+        });
+    }
 };
 
 exports.RenderTable = RenderTable;
