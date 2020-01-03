@@ -80,9 +80,9 @@ const menuTemplate = [
                 }
             },
             {
-                label: '<s>Zarządzaj członkami</s> (Experimental, Unknown ETA)',
+                label: 'Zarządzaj członkami (Experimental)',
                 click: () => {
-                    if(config.devBuild || config.enablePreview)
+                    if(config.enableExperimental)
                         win.webContents.send('render-modal', { modal: 'manage-group-members' });
                 }
             }

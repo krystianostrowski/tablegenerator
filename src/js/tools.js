@@ -272,6 +272,70 @@ const EditMember = (groupId, memberId, name, surname, hoursFrom, hoursTo, hasBre
     SaveData(data);
 };
 
+const ChangeGroup = (memberId, groupId) => {
+    let data = GetData();
+    const groupIndex = GetElementOfArrayById(groupId, data.groups);
+    let currentGroupId = -1;
+    let currentGroupIndex = -1;
+
+    //Comparing function for sorting
+    const compare = (a, b) => {
+        a = GetElementOfArrayById(a, data.members);
+        b = GetElementOfArrayById(b, data.members);
+
+        if(data.members[a].secondName < data.members[b].secondName)
+            return -1;
+        
+        if(data.members[a].secondName > data.members[b].secondName)
+            return 0;
+
+        if(data.members[a].secondName === data.members[b].secondName)
+        {
+            if(data.members[a].name < data.members[b].name)
+                return -1;
+
+            if(data.members[a].name > data.members[b].name)
+                return 1;
+
+            return 0;
+        }
+    };
+
+    const memberIndex = GetElementOfArrayById(memberId, data.members);
+
+    console.log(`Member index: ${memberIndex}`);
+
+    data.groups.forEach(group => {
+        if(group.members.includes(data.members[memberIndex].id))
+        {
+            currentGroupIndex = GetElementOfArrayById(group.id, data.groups);
+            currentGroupId = group.id;
+        }
+    });
+
+    if(currentGroupId != groupId)
+    {
+        console.log(`Current Group: ${currentGroupId}`);
+        if(currentGroupId != -1 && currentGroupIndex != -1)
+        {
+            memberId = parseInt(memberId);
+            //member index in current group members
+            const memberToRemove = data.groups[currentGroupIndex].members.indexOf(memberId);
+
+            //removing member from current group
+            data.groups[currentGroupIndex].members.splice(memberToRemove, 1);
+
+            //adding member to new group
+            data.groups[groupIndex].members.push(memberId);
+
+            //sorting group after adding a new member
+            data.groups[groupIndex].members.sort(compare);
+
+            SaveData(data);
+        }
+    }
+};
+
 module.exports = {
     LoadData: () => {
         return GetData();
@@ -296,5 +360,8 @@ module.exports = {
     },
     CheckIfDatabaseExists: () => {
         CheckIfDatabaseExists();
+    },
+    ChangeGroup: (memberId, groupId) => {
+        ChangeGroup(memberId, groupId);
     }
 }

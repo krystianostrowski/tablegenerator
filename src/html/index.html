@@ -53,18 +53,20 @@
             <div class="inner__exit"></div>
         </button>
         <div class="modal--content">
-            <table id="groups__table">
-                <thead>
-                    <tr>
-                        <td>ID</td>
-                        <td>Nazwa grupy</td>
-                        <td>Wychowawca</td>
-                        <td>Opcje</td>
-                    </tr>
-                </thead>
-                <tbody  id="groups__table__body">
-                </tbody>
-            </table>
+            <div class="groups__table__container">
+                <table id="groups__table">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Nazwa grupy</td>
+                            <td>Wychowawca</td>
+                            <td>Opcje</td>
+                        </tr>
+                    </thead>
+                    <tbody  id="groups__table__body">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="modal manage-group-members">
@@ -72,7 +74,11 @@
             <div class="inner__exit"></div>
         </button>
         <div class="modal--content">
-            
+            <div class="group-members__table__container">
+                <table id="group-members__table">
+                </table>
+            </div>
+            <button onclick="SaveChangesInGroupMembers()">Zapisz</button>
         </div>
     </div>
     <div class="modal add-person">

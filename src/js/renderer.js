@@ -61,6 +61,10 @@ ipcRenderer.on('render-modal', (event, data) => {
             {
                 modalsRenderer.RenderMembersTable();
             }
+            else if(modalClassList.contains('manage-group-members'))
+            {
+                modalsRenderer.RenderManageGroupMembers();
+            }
         }
     });
 });

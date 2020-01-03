@@ -132,7 +132,18 @@ td {
     justify-content: space-around;
 }
 
-.modal--content div {
+.groups__table__container,
+.group-members__table__container {
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+}
+
+#manage-group-members tbody {
+    overflow: auto;
+}
+
+#members__table {
     height: 60%;
     overflow: auto;
 }

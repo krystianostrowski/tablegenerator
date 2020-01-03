@@ -116,6 +116,8 @@ function DeleteMember(gId, mId)
     //refreshing members table
     modalRenderer.RenderMembersTable();
 
+    tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
+
     DisplayAlert('Pomyślnie usunięto osobę!');
 }
 
@@ -149,4 +151,25 @@ function SaveChanges(id)
     tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
 
     DisplayAlert('Pomyślnie edytowano osobę!');
+}
+
+function SaveChangesInGroupMembers()
+{
+    const table = document.querySelector('#group-members__table');
+    const inputs = table.querySelectorAll('input[type=radio]');
+
+    inputs.forEach(input => {
+        if(input.checked)
+        {
+            const groupId = input.getAttribute('groupid');
+            const memberId = input.getAttribute('name');
+
+            tools.ChangeGroup(memberId, groupId);
+        }
+    });
+
+    modalRenderer.RenderManageGroupMembers();
+
+    //refreshing table
+    tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
 }
