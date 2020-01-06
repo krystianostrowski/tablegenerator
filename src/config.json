@@ -1,4 +1,4 @@
 {
-    "devBuild": true,
-    "enableExperimental": false
+  "devBuild": true,
+  "enableExperimental": false
 }

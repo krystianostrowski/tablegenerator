@@ -1,0 +1,4 @@
+modals.js 138 Add clearing select before re-rendering it
+renderer.js 80 Dots animation
+
+all modules - Optymalize files read/write operations

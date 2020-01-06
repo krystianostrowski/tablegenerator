@@ -1,11 +1,11 @@
-const { app, BrowserWindow, Menu, ipcMain, autoUpdater, dialog, shell, globalShortcut } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, autoUpdater, shell, globalShortcut } = require('electron');
 const config = require('./config.json');
 const path = require('path');
 const fs = require('fs');
 const os = require('os');
 
-const server = 'http://krystian-ostrowski.webd.pro';                        //URL to update's server
-const feed = `${server}/update?v=${app.getVersion()}`;    //path to updates directory on server
+const server = 'http://krystian-ostrowski.webd.pro';                //URL to update's server
+const feed = `${server}/update?v=${app.getVersion()}`;              //path to updates directory on server
 
 //console.log(process.platform, app.getVersion());
 if(handleSquirrelEvent()) {
@@ -177,34 +177,16 @@ app.on('activate', () => {
         console.log(x.id);
 });
 
-autoUpdater.on('update-available', () => {
-    const dialogOpts = {
-        type: 'info',
-        title: 'Aktualizacja',
-        detail: 'Proszę czekać. Trwa pobieranie aktualizacji'
-    }
-
-    dialog.showMessageBox(dialogOpts, response => {
-        console.log(response);
-    });
-})
+//update available
+autoUpdater.on('update-available', () => win.webContents.send('downloading-update'));
 
 //called when update downloaded
-autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
-    const dialogOpts = {
-        type: 'info',
-        buttons: ['Restart', 'Later'],
-        title: 'Application Updater',
-        message: process.platform === 'win32' ? releaseNotes : releaseName,
-        detail: 'A new version has been downloaded. Restart the application to apply the updates.'
-    };
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => win.webContents.send('downloaded-update'));
 
-    dialog.showMessageBox(dialogOpts, (response) => {
-        if(response === 0)
-            autoUpdater.quitAndInstall();
-    });
-});
+//install update
+ipcMain.on('install--update', () => autoUpdater.quitAndInstall());
 
+//printing
 ipcMain.on('print-to-pdf', (event) => {
     const pdfPath = path.join(os.tmpdir(), 'print.pdf');
     win.webContents.printToPDF({
@@ -217,7 +199,18 @@ ipcMain.on('print-to-pdf', (event) => {
             if(err) return console.log(err.message);
 
             shell.openExternal('file://' + pdfPath);
-            event.sender.send('wrote-pdf', pdfPath);
+
+            if(config.enableExperimental)
+                setTimeout(() => event.sender.send('wrote-pdf', pdfPath), 500);
         });
+    });
+});
+
+ipcMain.on('remove-PDF', (event, path) => {
+    fs.unlink(path, (error) => {
+        if(error)
+            return console.log(error);
+
+        console.log(`Removed: ${path}`);
     });
 });

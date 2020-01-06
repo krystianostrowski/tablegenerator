@@ -9,6 +9,27 @@
     <script src="./js/core.js"></script>
 </head>
 <body>
+    <div class="update update--hidden">
+        <div id="update--downloading">
+            <h1>Pobieranie aktualizacji
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+                <span class="dot">.</span>
+           </h1>
+           <div class="update__content">
+               <h2>Proszę czekać.</h2>
+           </div>
+        </div>
+        <div id="update--downloaded" class="hidden">
+            <div class="update__content">
+                <h1>Aktualizacja pobrana i gotowa do zainstalowania.</h1>
+            </div>
+            <div class="update__buttons">
+                <button type="button" id="laterBtn">Później</button>
+                <button type="button" id="installBtn">Zainstaluj</button>
+            </div>
+        </div>
+    </div>
     <div class="main__container">
         <div class="table-wrapper">
             <div class="header"></div>
@@ -112,8 +133,12 @@
             <div class="inner__exit"></div>
         </button>
         <div class="modal--content">
+            <div class="filters">
+                Wyszukaj: 
+                <input type="text" id="persons__search" oninput="Search('members__table__table', 'persons__search')">
+            </div>
             <div id="members__table">
-                <table>
+                <table id="members__table__table">
                     <thead>
                         <tr>
                             <td>ID</td>

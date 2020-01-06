@@ -303,8 +303,6 @@ const ChangeGroup = (memberId, groupId) => {
 
     const memberIndex = GetElementOfArrayById(memberId, data.members);
 
-    console.log(`Member index: ${memberIndex}`);
-
     data.groups.forEach(group => {
         if(group.members.includes(data.members[memberIndex].id))
         {
@@ -315,7 +313,6 @@ const ChangeGroup = (memberId, groupId) => {
 
     if(currentGroupId != groupId)
     {
-        console.log(`Current Group: ${currentGroupId}`);
         if(currentGroupId != -1 && currentGroupIndex != -1)
         {
             memberId = parseInt(memberId);
