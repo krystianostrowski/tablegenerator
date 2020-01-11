@@ -233,6 +233,54 @@ const FillInEditForm = (eId) => {
     form.appendChild(saveBtn);
 };
 
+/**
+ * This function renders manage group members modal
+ */
+const RenderManageGroupMembers = () => {
+    const data = tools.LoadData();
+    const members = data.members;
+    const groups = data.groups;
+    
+    const table = document.querySelector('#group-members__table');
+
+    while(table.firstChild)
+        table.removeChild(table.firstChild);
+
+    const thead = document.createElement('thead');
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+
+    const theadRow = thead.insertRow();
+
+    theadRow.insertCell().innerHTML = 'Imię i nazwisko';
+
+    groups.forEach(group => theadRow.insertCell().innerHTML = group.name);
+
+    members.forEach(member => {
+        const row = tbody.insertRow();
+
+        row.insertCell().innerHTML = `${member.secondName} ${member.name}`;
+
+        for(let i = 0; i < groups.length; i++)
+        {
+            const cell = row.insertCell();
+            const radio = document.createElement('input');
+            radio.type = 'radio';
+            radio.name = member.id;
+
+            if(groups[i].members.includes(member.id))
+                radio.checked = true;
+                
+            radio.setAttribute('groupid', groups[i].id);
+
+            cell.appendChild(radio);
+        }
+    });
+};
+
+exports.RenderManageGroupMembers = RenderManageGroupMembers;
 exports.RenderGroupsTable = RenderGroupsTable;
 exports.RenderAddPersonSelect = RenderAddPersonSelect;
 exports.RenderMembersTable = RenderMembersTable;

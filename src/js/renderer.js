@@ -61,8 +61,38 @@ ipcRenderer.on('render-modal', (event, data) => {
             {
                 modalsRenderer.RenderMembersTable();
             }
+            else if(modalClassList.contains('manage-group-members'))
+            {
+                modalsRenderer.RenderManageGroupMembers();
+            }
         }
     });
+});
+
+/*Update events*/
+ipcRenderer.on('downloading-update', () => {
+    //Displaying update info
+    const updateNode = document.querySelector('.update');
+    //const dots = updateNode.querySelectorAll('.dot');
+
+    updateNode.classList.toggle('update--hidden');
+
+    //@TODO: Dots animation
+});
+
+ipcRenderer.on('downloaded-update', () => {
+    const updateNode = document.querySelector('.update');
+    const downloading = updateNode.querySelector('#update--downloading');
+    const downloaded = updateNode.querySelector('#update--downloaded');
+    const installBtn = updateNode.querySelector('#installBtn');
+    const laterBtn = updateNode.querySelector('#leterBtn');
+    
+    downloaded.classList.toggle('hidden');
+    downloading.classList.toggle('hidden');
+
+    installBtn.addEventListener('click', () => ipcRenderer.send('install-update'));
+
+    laterBtn.addEventListener('click', () => updateNode.classList.toggle('update--hidden'));
 });
 
 //Event called when PDF file was write
@@ -70,6 +100,8 @@ ipcRenderer.on('wrote-pdf', (event, path) => {
     const message = `Wrote PDF to: ${path}`;
 
     console.log(message);
+
+    ipcRenderer.send('remove-PDF', path);
 });
 
 //Called when pressed print button

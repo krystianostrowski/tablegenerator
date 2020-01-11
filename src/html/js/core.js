@@ -116,6 +116,8 @@ function DeleteMember(gId, mId)
     //refreshing members table
     modalRenderer.RenderMembersTable();
 
+    tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
+
     DisplayAlert('Pomyślnie usunięto osobę!');
 }
 
@@ -149,4 +151,79 @@ function SaveChanges(id)
     tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
 
     DisplayAlert('Pomyślnie edytowano osobę!');
+}
+
+function SaveChangesInGroupMembers()
+{
+    const table = document.querySelector('#group-members__table');
+    const inputs = table.querySelectorAll('input[type=radio]');
+
+    inputs.forEach(input => {
+        if(input.checked)
+        {
+            const groupId = input.getAttribute('groupid');
+            const memberId = input.getAttribute('name');
+
+            tools.ChangeGroup(memberId, groupId);
+        }
+    });
+
+    modalRenderer.RenderManageGroupMembers();
+
+    //refreshing table
+    tableRenderer.RenderTable(groupSelect.value, monthSelect.value, yearSelect.value);
+}
+
+/**
+ * @description Used for filtering members table
+ * @param {String} tableId - id of table to search
+ * @param {String} searchFieldId - search field id
+ */
+function Search(tableId, searchFieldId)
+{
+    const searchField = document.querySelector(`#${searchFieldId}`);        //search field node
+    const table = document.querySelector(`#${tableId}`);
+    const rows = table.querySelectorAll('tr');
+    const string = searchField.value;                                       //string to search (from search field)
+
+    for(let i = 1; i < rows.length; i++)
+    {  
+        /** 
+         * Looping through all rows (except first because it is table header 
+         * and we don't want to search sth in header) in table, 
+         * getting all his cells and looping through all cells if string isn't empty.
+         * If it is, function shows all rows ang goes to next iteration
+         **/ 
+        if(string == '')
+        {
+            rows[i].style.display = 'table-row';
+            continue;
+        }
+    
+        const cells = rows[i].querySelectorAll('td');
+
+        for(let j = 1; j < cells.length; j++)
+        {
+            /**
+             * Looping through all cells in row (except 1st - it's ID and 5th - buttons),
+             * checking if row includes string from search field and showing this rows,
+             * if row doesn't include string, function hides him 
+             */
+
+            if(j == 5)
+                continue;
+
+            let cellValue = cells[j].innerText.toLowerCase();
+
+            if(cellValue.includes(string.toLowerCase()))
+            {
+                rows[i].style.display = 'table-row';
+                break;
+            }
+            else
+            {
+                rows[i].style.display = 'none';
+            }
+        }
+}
 }

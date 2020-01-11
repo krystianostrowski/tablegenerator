@@ -25,6 +25,7 @@
     div.table-wrapper {
         width: 100vw;
         max-height: 210mm;
+        padding-left: 2%;
     }
 
     table#main-table {
@@ -85,6 +86,7 @@
 }
 
 table {
+    display: inline-table;
     width: calc(100% - 10px);
     margin: auto;
     text-align: center;
@@ -132,7 +134,18 @@ td {
     justify-content: space-around;
 }
 
-.modal--content div {
+.groups__table__container,
+.group-members__table__container {
+    width: 80%;
+    height: 80%;
+    overflow: auto;
+}
+
+#manage-group-members tbody {
+    overflow: auto;
+}
+
+#members__table {
     height: 60%;
     overflow: auto;
 }
@@ -299,6 +312,73 @@ table button {
     font-size: 20px;
 }
 
+/** @group Update */
+.update {
+    color: #fff;
+    width: 60%;
+    height: 60%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: #121212;
+    z-index: 9999;
+    padding: 0 25px;
+}
+
+.update--hidden {
+    display: none;
+}
+
+.update__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden {
+    display: none;
+}
+
+#update--downloaded {
+    height: 100%;
+}
+
+.update__buttons {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+}
+
+.update__buttons button {
+    width: 100px;
+    height: 35px;
+    font-size: 18px;
+    border: 1px solid #1db954;
+    border-radius: 25px;
+    outline: none;
+    background: none;
+    color: #fff;
+    transform: scale(1);
+    transition: transform .05s ease-in-out;
+}
+
+.update__buttons button:nth-child(2) {
+    background: #1db954;
+}
+
+.update__buttons button:active {
+    transform: scale(.95);
+    transition: transform .05s ease-in-out;
+}
+
 /** @group options */
 .options {
     display: flex;
@@ -342,7 +422,7 @@ table button {
     overflow: hidden;
     color: #fff;
     font-size: 16px;
-    animation: btnHoverOut .5s ease-in-out forwards;
+    /*animation: btnHoverOut .5s ease-in-out forwards;*/
 }
 
 #print__btn::before {
@@ -353,6 +433,8 @@ table button {
     bottom: 2px;
     width: 50%;
     background: rgba(255, 255, 255, 0.05);
+    transform: scale(1);
+    transition: transform .3s ease-out;
 }
 
 #print__btn span:nth-child(1) {
@@ -396,7 +478,9 @@ table button {
 }
 
 #print__btn:hover {
-    animation: btnHover .5s ease-in-out .2s forwards;
+    /*animation: btnHover .5s ease-in-out .2s forwards;*/
+    transform: scale(.9);
+    transition: transform .3s ease-in-out;
 }
 
 
@@ -407,13 +491,13 @@ table button {
 }
 
 /** @group aniations */
-@keyframes btnHover {
+/*@keyframes btnHover {
     0% {
         transform: scale(1);
     }
 
     100% {
-        transform: translateX(-15px) translateY(20px) scale(.9);
+        transform: translateX(-15px) translateY(20px) scale(1.5);
     }
 
 }
@@ -426,7 +510,7 @@ table button {
     100% {
         transform: scale(1) translateX(0) translateY(0);
     }
-}
+}*/
 
 @keyframes animate1
 {
