@@ -133,9 +133,10 @@ const RenderMembersTable = () => {
     });
 };
 
+//TODO: Add clearing select before re-rendering it
+
 /**
  * @description This function renders group selcect in add person form
- * @todo Add clearing select before re-rendering it
  */
 const RenderAddPersonSelect = () => {
     const select = document.querySelector('#add-person__select');   //group select element in add person form

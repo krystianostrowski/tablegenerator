@@ -178,7 +178,12 @@ app.on('activate', () => {
 });
 
 //update available
-autoUpdater.on('update-available', () => win.webContents.send('downloading-update'));
+autoUpdater.on('update-available', () => {
+    shell.openExternal('http://krystian-ostrowski.webd.pro/update/changelog.html');
+    win.webContents.send('downloading-update');
+});
+
+autoUpdater.on('update-progress', (progressObj) => console.log(`Downloading. Speed: ${progressObj.bytesPerSeconnd} Downloaded: ${progressObj.percent}%`));
 
 //called when update downloaded
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => win.webContents.send('downloaded-update'));

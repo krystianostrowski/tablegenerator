@@ -100,7 +100,7 @@ const RenderPersons = (group, table, tbody, numOfDays) => {
 
         //filling in cells
         cells[0].innerHTML = counter;
-        cells[1].innerHTML = `${members[index].name} ${members[index].secondName}`;
+        cells[1].innerHTML = `${members[index].secondName} ${members[index].name}`;
         cells[2].innerHTML = `${members[index].start} - ${members[index].end}`;
         cells[3].innerHTML = `${(members[index].dishes.breakfast) ? 'Ś' : ''} ${(members[index].dishes.dinner) ? 'O' : ''} ${(members[index].dishes.tea) ? 'P' : ''}`;
         

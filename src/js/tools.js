@@ -1,3 +1,7 @@
+/**
+ * Abandon hope, all ye who enter here - @Dante_Alighieri
+ * Porzućcie wszelką nadzieję, którzy tu wchodzicie. - @Dante_Alighieri
+ */
 const fs = require('fs');
 
 const dbDir = `${process.env.APPDATA}\\table-generator`;    //JSON database directory
@@ -140,22 +144,7 @@ const AddMember = (groupId, name, surname, hoursFrom, hoursTo, hasBreakfast, has
         a = GetElementOfArrayById(a, data.members);
         b = GetElementOfArrayById(b, data.members);
 
-        if(data.members[a].secondName < data.members[b].secondName)
-            return -1;
-        
-        if(data.members[a].secondName > data.members[b].secondName)
-            return 0;
-
-        if(data.members[a].secondName === data.members[b].secondName)
-        {
-            if(data.members[a].name < data.members[b].name)
-                return -1;
-
-            if(data.members[a].name > data.members[b].name)
-                return 1;
-
-            return 0;
-        }
+        return data.members[a].secondName.localeCompare(data.members[b].secondName);
     };
 
     //Sorting mebers alphabetically by surname and name
@@ -212,22 +201,7 @@ const EditMember = (groupId, memberId, name, surname, hoursFrom, hoursTo, hasBre
         a = GetElementOfArrayById(a, data.members);
         b = GetElementOfArrayById(b, data.members);
 
-        if(data.members[a].secondName < data.members[b].secondName)
-            return -1;
-        
-        if(data.members[a].secondName > data.members[b].secondName)
-            return 0;
-
-        if(data.members[a].secondName === data.members[b].secondName)
-        {
-            if(data.members[a].name < data.members[b].name)
-                return -1;
-
-            if(data.members[a].name > data.members[b].name)
-                return 1;
-
-            return 0;
-        }
+        return data.members[a].secondName.localeCompare(data.members[b].secondName);
     };
 
     let member = GetElementOfArrayById(memberId, data.members);    //member index in members array
@@ -283,22 +257,7 @@ const ChangeGroup = (memberId, groupId) => {
         a = GetElementOfArrayById(a, data.members);
         b = GetElementOfArrayById(b, data.members);
 
-        if(data.members[a].secondName < data.members[b].secondName)
-            return -1;
-        
-        if(data.members[a].secondName > data.members[b].secondName)
-            return 0;
-
-        if(data.members[a].secondName === data.members[b].secondName)
-        {
-            if(data.members[a].name < data.members[b].name)
-                return -1;
-
-            if(data.members[a].name > data.members[b].name)
-                return 1;
-
-            return 0;
-        }
+        return data.members[a].secondName.localeCompare(data.members[b].secondName);
     };
 
     const memberIndex = GetElementOfArrayById(memberId, data.members);

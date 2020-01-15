@@ -36,19 +36,24 @@ const alphabet = {
  };
 
 const Sort = array => {
-    let buffer;
-    let first;
-    let second;
-    let sortedArray = [];
+    const sortedArray = [];
+    const names = [];
 
     let data = tools.LoadData();
+
+    const persons = data.members;
 
     //array of persons indices in pesrons array
     let indices = GetIndices(array, data.members);
 
-    
+    for(let i = 0; i < indices.length; i++)
+        names.push({ name: `${persons[i].secondName}${persons[i].name}`.toUpperCase(), id: persons[i].id});
 
     return sortedArray;  
+};
+
+const QuickSort = array => {
+    
 };
 
 const GetIndices = (arrayToSort, membersArray) => {

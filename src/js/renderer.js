@@ -77,7 +77,7 @@ ipcRenderer.on('downloading-update', () => {
 
     updateNode.classList.toggle('update--hidden');
 
-    //@TODO: Dots animation
+    //TODO: Dots animation
 });
 
 ipcRenderer.on('downloaded-update', () => {
