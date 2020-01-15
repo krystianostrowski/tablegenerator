@@ -79,13 +79,13 @@ const menuTemplate = [
                     win.webContents.send('render-modal', { modal: 'del-group' });
                 }
             },
-            {
+            /*{
                 label: 'Zarządzaj członkami (Experimental)',
                 click: () => {
                     if(config.enableExperimental)
                         win.webContents.send('render-modal', { modal: 'manage-group-members' });
                 }
-            }
+            }*/
         ]
     },
     {
@@ -205,8 +205,8 @@ ipcMain.on('print-to-pdf', (event) => {
 
             shell.openExternal('file://' + pdfPath);
 
-            if(config.enableExperimental)
-                setTimeout(() => event.sender.send('wrote-pdf', pdfPath), 500);
+            /*if(config.enableExperimental)
+                setTimeout(() => event.sender.send('wrote-pdf', pdfPath), 500);*/
         });
     });
 });
