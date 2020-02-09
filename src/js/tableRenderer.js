@@ -31,8 +31,8 @@ const RenderThead = (table, thead, days) => {
     cells[1].innerHTML = 'Imie i nazwisko';
     cells[2].innerHTML = 'Godziny';
     cells[3].innerHTML = 'Posiłki';
-
     for(let i = 4; i < numOfCells; i++)
+
         cells[i].innerHTML = days[i - 4];
 };
 

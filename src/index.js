@@ -80,9 +80,8 @@ const menuTemplate = [
                 }
             },
             {
-                label: 'Zarządzaj członkami (Experimental)',
+                label: 'Zarządzaj członkami (BETA)',
                 click: () => {
-                    if(config.enableExperimental)
                         win.webContents.send('render-modal', { modal: 'manage-group-members' });
                 }
             }
@@ -160,6 +159,10 @@ const createWindow = () => {
         //open dev tools
         win.webContents.openDevTools();
     }
+    globalShortcut.register("Ctrl + P", () => {
+        win.webContents.send('print');
+    });
+
 };
 
 //initialize app window
@@ -205,8 +208,7 @@ ipcMain.on('print-to-pdf', (event) => {
 
             shell.openExternal('file://' + pdfPath);
 
-            if(config.enableExperimental)
-                setTimeout(() => event.sender.send('wrote-pdf', pdfPath), 500);
+            setTimeout(() => event.sender.send('wrote-pdf', pdfPath), 500);
         });
     });
 });

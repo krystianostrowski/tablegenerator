@@ -107,9 +107,8 @@ ipcRenderer.on('wrote-pdf', (event, path) => {
 //Called when pressed print button
 ipcRenderer.on('print', () => {
     //Sending event to main thread
-    //ipcRenderer.send('print-to-pdf');
-    window.print();
-})
+    ipcRenderer.send('print-to-pdf');
+});
 
 //hides current showing modal and removes modal's button event listener
 const exitButtonFunction = () => {
