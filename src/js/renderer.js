@@ -85,7 +85,7 @@ ipcRenderer.on('downloaded-update', () => {
     const downloading = updateNode.querySelector('#update--downloading');
     const downloaded = updateNode.querySelector('#update--downloaded');
     const installBtn = updateNode.querySelector('#installBtn');
-    const laterBtn = updateNode.querySelector('#leterBtn');
+    const laterBtn = updateNode.querySelector('#laterBtn');
     
     downloaded.classList.toggle('hidden');
     downloading.classList.toggle('hidden');
@@ -94,6 +94,19 @@ ipcRenderer.on('downloaded-update', () => {
 
     laterBtn.addEventListener('click', () => updateNode.classList.toggle('update--hidden'));
 });
+
+const updateNode = document.querySelector('.update');
+    const downloading = updateNode.querySelector('#update--downloading');
+    const downloaded = updateNode.querySelector('#update--downloaded');
+    const installBtn = updateNode.querySelector('#installBtn');
+    const laterBtn = updateNode.querySelector('#laterBtn');
+    
+    //downloaded.classList.toggle('hidden');
+    //downloading.classList.toggle('hidden');
+
+    installBtn.addEventListener('click', () => ipcRenderer.send('install-update'));
+
+    laterBtn.addEventListener('click', () => updateNode.classList.toggle('update--hidden'));
 
 //Event called when PDF file was write
 ipcRenderer.on('wrote-pdf', (event, path) => {

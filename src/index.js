@@ -182,7 +182,7 @@ app.on('activate', () => {
 
 //update available
 autoUpdater.on('update-available', () => {
-    shell.openExternal('http://krystian-ostrowski.webd.pro/update/changelog.html');
+    shell.openExternal('http://krystian-ostrowski.webd.pro/update/changelog/index.html');
     win.webContents.send('downloading-update');
 });
 
@@ -192,7 +192,7 @@ autoUpdater.on('update-progress', (progressObj) => console.log(`Downloading. Spe
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => win.webContents.send('downloaded-update'));
 
 //install update
-ipcMain.on('install--update', () => autoUpdater.quitAndInstall());
+ipcMain.on('install-update', () => autoUpdater.quitAndInstall());
 
 //printing
 ipcMain.on('print-to-pdf', (event) => {
