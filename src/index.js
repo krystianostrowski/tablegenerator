@@ -135,7 +135,10 @@ const createWindow = () => {
     win.maximize();
 
     //load index.html
-    win.loadFile('./html/index.html');
+    if(!config.enableExperimental)
+        win.loadFile('./html/index.html');
+    else
+        win.loadFile('./html/new.html');
 
     //called when window is closed
     win.on('closed', () => {
